@@ -105,7 +105,7 @@ Compatibility Notes
   ```rust
   fn main() {
       const PAIR: &(i32, i32) = &(0, 1);
-      let _reversed_pair: &'static _ = &(PAIR.1, PAIR.0);
+      let _reversed_pair: &'static _ = &(PAIR.1, PAIR.0); // Doesn't work
   }
   ```
 - [Removed the deprecated unstable SipHasher{13,24} from documentation.][49108]
