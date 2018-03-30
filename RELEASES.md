@@ -78,8 +78,8 @@ Stabilized APIs
 - [`FromUtf8Error::as_bytes`]
 - [`LocalKey::try_with`]
 - [`Option::cloned`]
-- [`[T]::rotate_left`]
-- [`[T]::rotate_right`]
+- [`slice::rotate_left`]
+- [`slice::rotate_right`]
 - [`convert::TryFrom`]
 - [`convert::TryInto`]
 - [`iter::FusedIterator`]
@@ -179,8 +179,8 @@ Compatibility Notes
 [`FromUtf8Error::as_bytes`]: https://doc.rust-lang.org/std/string/struct.FromUtf8Error.html#method.as_bytes
 [`LocalKey::try_with`]: https://doc.rust-lang.org/std/thread/struct.LocalKey.html#method.try_with
 [`Option::cloned`]: https://doc.rust-lang.org/std/option/enum.Option.html#method.cloned
-[`[T]::rotate_left`]: https://doc.rust-lang.org/std/primitive.slice.html#method.rotate_left
-[`[T]::rotate_right`]: https://doc.rust-lang.org/std/primitive.slice.html#method.rotate_right
+[`slice::rotate_left`]: https://doc.rust-lang.org/std/primitive.slice.html#method.rotate_left
+[`slice::rotate_right`]: https://doc.rust-lang.org/std/primitive.slice.html#method.rotate_right
 [`convert::TryFrom`]: https://doc.rust-lang.org/std/convert/trait.TryFrom.html
 [`convert::TryInto`]: https://doc.rust-lang.org/std/convert/trait.TryInto.html
 [`iter::FusedIterator`]: https://doc.rust-lang.org/std/iter/trait.FusedIterator.html
