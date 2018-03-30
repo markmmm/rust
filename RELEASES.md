@@ -14,9 +14,9 @@ Language
   `Termination` (currently `()`, `!`,
   `Result<(), E: Debug>`, `Result<!, E: Debug>`).][49162]
 - [Fixed entry slice patterns are now stable.][48516] e.g.
-  ```
+  ```rust
   let points = [1, 2, 3, 4];
-  match x {
+  match points {
       [1, 2, 3, 4] => println!("All points were sequential."),
       _ => println!("Not all points were sequential."),
   }
