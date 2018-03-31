@@ -4,10 +4,11 @@ Version 1.26.0 (2018-05-10)
 Language
 --------
 - [Closures now implement `Copy + Clone` if all captured variables do.][49299]
-- [Stabilised the `!` type (A type that has no value).][47630]
+- [Stabilised the `!` type.][47630] (Also known as the never type).
 - [The inclusive range syntax e.g. `for x in 0..=10` is now stable.][47813]
 - [`impl Trait` is now stable allowing you to have abstract
-  return types.][49255] e.g. `fn foo() -> impl Iterator<Item=u8>`
+  return types.][49255] e.g. `fn foo() -> impl Iterator<Item=u8>` or
+  `fn open(path: impl AsRef<Path>)`.
 - [Pattern matching on references are now automatically dereferenced.][49394]
 - [128-bit integers in the form of `u128` & `i128` are now stable.][49101]
 - [`main` now accepts any type implementing the unstable trait
@@ -26,7 +27,7 @@ Language
 
 Compiler
 --------
-- [LLD is now used as the default linker for `wasm32-unknown-target`.][48125]
+- [LLD is now used as the default linker for `wasm32-unknown-unknown`.][48125]
 - [Fixed exponential projection complexity on nested types.][48296]
   This can provide up to a ~12% reduction in compile times for certain crates.
 - [Added the `--remap-path-prefix` option to rustc.][48359] Allowing you
