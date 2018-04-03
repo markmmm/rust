@@ -11,9 +11,8 @@ Language
   `fn open(path: impl AsRef<Path>)`.
 - [Pattern matching on references are now automatically dereferenced.][49394]
 - [128-bit integers in the form of `u128` & `i128` are now stable.][49101]
-- [`main` now accepts any type implementing the unstable trait
-  `Termination` (currently `()`, `!`,
-  `Result<(), E: Debug>`, `Result<!, E: Debug>`).][49162]
+- [`main` can now return `!`, `Result<(), E: Debug>`,
+  `Result<!, E: Debug>`).][49162] In addition to `()`.
 - [Fixed entry slice patterns are now stable.][48516] e.g.
   ```rust
   let points = [1, 2, 3, 4];
@@ -40,7 +39,7 @@ Libraries
 - [Added hexadecimal formatting for integers with fmt::Debug][48978]
   e.g. `assert!(format!("{:02x?}", b"Foo\0") == "[46, 6f, 6f, 00]")`
 - [Implemented `Default, Hash` for `cmp::Reverse`.][48628]
-- [Optimized `str::repeat` being 8x fast in large cases.][48657]
+- [Optimized `str::repeat` being 8x faster in large cases.][48657]
 - [`ascii::escape_default` is now available in libcore.][48735]
 - [Implemented `FromStr` for `PathBuf`][48292]
 - [Trailing commas are now supported in std & core macros.][48056]
@@ -74,18 +73,23 @@ Stabilized APIs
 - [`*mut T::write_volatile`]
 - [`*mut T::write`]
 - [`Box::leak`]
-- [`btree_map::Entry::and_modify`]
-- [`hash_map::Entry::and_modify`]
 - [`FromUtf8Error::as_bytes`]
 - [`LocalKey::try_with`]
 - [`Option::cloned`]
-- [`slice::rotate_left`]
-- [`slice::rotate_right`]
+- [`btree_map::Entry::and_modify`]
 - [`convert::TryFrom`]
 - [`convert::TryInto`]
+- [`fs::read_to_string`]
+- [`fs::read`]
+- [`fs::write`]
+- [`hash_map::Entry::and_modify`]
 - [`iter::FusedIterator`]
-- [`ops::RangeToInclusive`]
 - [`ops::RangeInclusive`]
+- [`ops::RangeToInclusive`]
+- [`process::id`]
+- [`slice::rotate_left`]
+- [`slice::rotate_right`]
+
 
 Cargo
 -----
@@ -115,25 +119,11 @@ Compatibility Notes
   an error.][48235]
 - [Removed hoedown from rustdoc.][48274]
 
-[49234]: https://github.com/rust-lang/rust/pull/49234
-[49255]: https://github.com/rust-lang/rust/pull/49255
-[49299]: https://github.com/rust-lang/rust/pull/49299
-[49305]: https://github.com/rust-lang/rust/pull/49305
-[49394]: https://github.com/rust-lang/rust/pull/49394
-[48978]: https://github.com/rust-lang/rust/pull/48978
-[49101]: https://github.com/rust-lang/rust/pull/49101
-[49108]: https://github.com/rust-lang/rust/pull/49108
-[49109]: https://github.com/rust-lang/rust/pull/49109
-[49121]: https://github.com/rust-lang/rust/pull/49121
-[49162]: https://github.com/rust-lang/rust/pull/49162
-[49184]: https://github.com/rust-lang/rust/pull/49184
-[48628]: https://github.com/rust-lang/rust/pull/48628
-[48629]: https://github.com/rust-lang/rust/pull/48629
-[48657]: https://github.com/rust-lang/rust/pull/48657
-[48735]: https://github.com/rust-lang/rust/pull/48735
-[48404]: https://github.com/rust-lang/rust/pull/48404
-[48516]: https://github.com/rust-lang/rust/pull/48516
-[48481]: https://github.com/rust-lang/rust/pull/48481
+[47379]: https://github.com/rust-lang/rust/pull/47379
+[47408]: https://github.com/rust-lang/rust/pull/47408
+[47630]: https://github.com/rust-lang/rust/pull/47630
+[47813]: https://github.com/rust-lang/rust/pull/47813
+[48056]: https://github.com/rust-lang/rust/pull/48056
 [48125]: https://github.com/rust-lang/rust/pull/48125
 [48166]: https://github.com/rust-lang/rust/pull/48166
 [48235]: https://github.com/rust-lang/rust/pull/48235
@@ -142,14 +132,25 @@ Compatibility Notes
 [48292]: https://github.com/rust-lang/rust/pull/48292
 [48296]: https://github.com/rust-lang/rust/pull/48296
 [48359]: https://github.com/rust-lang/rust/pull/48359
-[48056]: https://github.com/rust-lang/rust/pull/48056
-[47630]: https://github.com/rust-lang/rust/pull/47630
-[47813]: https://github.com/rust-lang/rust/pull/47813
-[47379]: https://github.com/rust-lang/rust/pull/47379
-[47408]: https://github.com/rust-lang/rust/pull/47408
-[cargo/5041]: https://github.com/rust-lang/cargo/pull/5041
-[cargo/5083]: https://github.com/rust-lang/cargo/pull/5083
-[cargo/5093]: https://github.com/rust-lang/cargo/pull/5093
+[48404]: https://github.com/rust-lang/rust/pull/48404
+[48481]: https://github.com/rust-lang/rust/pull/48481
+[48516]: https://github.com/rust-lang/rust/pull/48516
+[48628]: https://github.com/rust-lang/rust/pull/48628
+[48629]: https://github.com/rust-lang/rust/pull/48629
+[48657]: https://github.com/rust-lang/rust/pull/48657
+[48735]: https://github.com/rust-lang/rust/pull/48735
+[48978]: https://github.com/rust-lang/rust/pull/48978
+[49101]: https://github.com/rust-lang/rust/pull/49101
+[49108]: https://github.com/rust-lang/rust/pull/49108
+[49109]: https://github.com/rust-lang/rust/pull/49109
+[49121]: https://github.com/rust-lang/rust/pull/49121
+[49162]: https://github.com/rust-lang/rust/pull/49162
+[49184]: https://github.com/rust-lang/rust/pull/49184
+[49234]: https://github.com/rust-lang/rust/pull/49234
+[49255]: https://github.com/rust-lang/rust/pull/49255
+[49299]: https://github.com/rust-lang/rust/pull/49299
+[49305]: https://github.com/rust-lang/rust/pull/49305
+[49394]: https://github.com/rust-lang/rust/pull/49394
 [`*const T::add`]: https://doc.rust-lang.org/std/primitive.pointer.html#method.add
 [`*const T::copy_to_nonoverlapping`]: https://doc.rust-lang.org/std/primitive.pointer.html#method.copy_to_nonoverlapping
 [`*const T::copy_to`]: https://doc.rust-lang.org/std/primitive.pointer.html#method.copy_to
@@ -175,18 +176,25 @@ Compatibility Notes
 [`*mut T::write_volatile`]: https://doc.rust-lang.org/std/primitive.pointer.html#method.write_volatile
 [`*mut T::write`]: https://doc.rust-lang.org/std/primitive.pointer.html#method.write
 [`Box::leak`]: https://doc.rust-lang.org/std/boxed/struct.Box.html#method.leak
-[`btree_map::Entry::and_modify`]: https://doc.rust-lang.org/std/collections/btree_map/enum.Entry.html#method.and_modify
-[`hash_map::Entry::and_modify`]: https://doc.rust-lang.org/std/collections/hash_map/enum.Entry.html#method.and_modify
 [`FromUtf8Error::as_bytes`]: https://doc.rust-lang.org/std/string/struct.FromUtf8Error.html#method.as_bytes
 [`LocalKey::try_with`]: https://doc.rust-lang.org/std/thread/struct.LocalKey.html#method.try_with
 [`Option::cloned`]: https://doc.rust-lang.org/std/option/enum.Option.html#method.cloned
-[`slice::rotate_left`]: https://doc.rust-lang.org/std/primitive.slice.html#method.rotate_left
-[`slice::rotate_right`]: https://doc.rust-lang.org/std/primitive.slice.html#method.rotate_right
+[`btree_map::Entry::and_modify`]: https://doc.rust-lang.org/std/collections/btree_map/enum.Entry.html#method.and_modify
 [`convert::TryFrom`]: https://doc.rust-lang.org/std/convert/trait.TryFrom.html
 [`convert::TryInto`]: https://doc.rust-lang.org/std/convert/trait.TryInto.html
+[`fs::read_to_string`]: https://doc.rust-lang.org/std/fs/fn.read_to_string.html
+[`fs::read`]: https://doc.rust-lang.org/std/fs/fn.read.html
+[`fs::write`]: https://doc.rust-lang.org/std/fs/fn.write.html
+[`hash_map::Entry::and_modify`]: https://doc.rust-lang.org/std/collections/hash_map/enum.Entry.html#method.and_modify
 [`iter::FusedIterator`]: https://doc.rust-lang.org/std/iter/trait.FusedIterator.html
-[`ops::RangeToInclusive`]: https://doc.rust-lang.org/std/ops/struct.RangeToInclusive.html
 [`ops::RangeInclusive`]: https://doc.rust-lang.org/std/ops/struct.RangeInclusive.html
+[`ops::RangeToInclusive`]: https://doc.rust-lang.org/std/ops/struct.RangeToInclusive.html
+[`process::id`]: https://doc.rust-lang.org/std/process/fn.id.html
+[`slice::rotate_left`]: https://doc.rust-lang.org/std/primitive.slice.html#method.rotate_left
+[`slice::rotate_right`]: https://doc.rust-lang.org/std/primitive.slice.html#method.rotate_right
+[cargo/5041]: https://github.com/rust-lang/cargo/pull/5041
+[cargo/5083]: https://github.com/rust-lang/cargo/pull/5083
+[cargo/5093]: https://github.com/rust-lang/cargo/pull/5093
 
 
 Version 1.25.0 (2018-03-29)
