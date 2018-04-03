@@ -95,7 +95,7 @@ Cargo
 -----
 - [Cargo will now output path to custom commands when `-v` is
   passed with `--list`][cargo/5041]
-- [Make cargo-the-binary version the same as the Rust version][cargo/5083]
+- [The Cargo binary version is now the same as the Rust version][cargo/5083]
 - [`Cargo.lock` files are now included in published crates.][cargo/5093]
 
 Misc
@@ -113,8 +113,8 @@ Compatibility Notes
       let _reversed_pair: &'static _ = &(PAIR.1, PAIR.0); // Doesn't work
   }
   ```
-- [Removed the deprecated unstable SipHasher{13,24} from documentation.][49108]
-- [Deprecate AsciiExt trait in favor of inherent methods.][49109]
+- [Removed the deprecated unstable `SipHasher{13,24}` from documentation.][49108]
+- [Deprecate `AsciiExt` trait in favor of inherent methods.][49109]
 - [`".e0"` will now no longer parse as `0.0` and will instead cause
   an error.][48235]
 - [Removed hoedown from rustdoc.][48274]
