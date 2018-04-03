@@ -42,7 +42,7 @@ Libraries
 - [Optimized `str::repeat` being 8x faster in large cases.][48657]
 - [`ascii::escape_default` is now available in libcore.][48735]
 - [Implemented `FromStr` for `PathBuf`][48292]
-- [Trailing commas are now supported in std & core macros.][48056]
+- [Trailing commas are now supported in std and core macros.][48056]
 - [Implemented `Copy, Clone` for `cmp::Reverse`][47379]
 - [Implemented `Clone` for `char::{ToLowercase, ToUppercase}`.][48629]
 
