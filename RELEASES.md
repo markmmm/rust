@@ -12,7 +12,7 @@ Language
 - [Pattern matching on references are now automatically dereferenced.][49394]
 - [128-bit integers in the form of `u128` & `i128` are now stable.][49101]
 - [`main` can now return `!`, `Result<(), E: Debug>`,
-  `Result<!, E: Debug>`).][49162] In addition to `()`.
+  `Result<!, E: Debug>`][49162] In addition to `()`.
 - [Fixed entry slice patterns are now stable.][48516] e.g.
   ```rust
   let points = [1, 2, 3, 4];
