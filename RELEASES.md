@@ -3,15 +3,17 @@ Version 1.26.0 (2018-05-10)
 
 Language
 --------
-- [Closures now implement `Copy + Clone` if all captured variables do.][49299]
-- [Stabilised the `!` type.][47630] (Also known as the never type).
+- [Closures now implement `Copy` and/or `Clone` if all captured variables
+  implement either or both traits.][49299]
 - [The inclusive range syntax e.g. `for x in 0..=10` is now stable.][47813]
+- [Stablise `'_`. The underscore lifetime can be used anywhere where a
+  lifetime can be elided.][49458]
 - [`impl Trait` is now stable allowing you to have abstract
   return types.][49255] e.g. `fn foo() -> impl Iterator<Item=u8>` or
   `fn open(path: impl AsRef<Path>)`.
 - [Pattern matching on references are now automatically dereferenced.][49394]
-- [128-bit integers in the form of `u128` & `i128` are now stable.][49101]
-- [`main` can now return `!`, `Result<(), E: Debug>`,
+- [128-bit integers in the form of `u128` and `i128` are now stable.][49101]
+- [`main` can now return `Result<(), E: Debug>`,
   `Result<!, E: Debug>`][49162] In addition to `()`.
 - [Fixed entry slice patterns are now stable.][48516] e.g.
   ```rust
@@ -21,7 +23,6 @@ Language
       _ => println!("Not all points were sequential."),
   }
   ```
-- [Parentheses are now allowed in `dyn` traits.][48481]
 
 
 Compiler
@@ -89,6 +90,7 @@ Stabilized APIs
 - [`process::id`]
 - [`slice::rotate_left`]
 - [`slice::rotate_right`]
+- [`String::retain`]
 
 
 Cargo
@@ -105,6 +107,13 @@ Misc
 
 Compatibility Notes
 -------------------
+
+- [aliasing a `Fn` trait as `dyn` no longer works.][48481] E.g. the following
+  syntax is now a invalid.
+  ```
+  use std::ops::Fn as dyn;
+  fn g(_: Box<dyn(std::fmt::Debug)>) {}
+  ```
 - [The result of dereferences are no longer promoted to `'static`.][47408]
   e.g.
   ```rust
@@ -121,7 +130,6 @@ Compatibility Notes
 
 [47379]: https://github.com/rust-lang/rust/pull/47379
 [47408]: https://github.com/rust-lang/rust/pull/47408
-[47630]: https://github.com/rust-lang/rust/pull/47630
 [47813]: https://github.com/rust-lang/rust/pull/47813
 [48056]: https://github.com/rust-lang/rust/pull/48056
 [48125]: https://github.com/rust-lang/rust/pull/48125
@@ -151,6 +159,7 @@ Compatibility Notes
 [49299]: https://github.com/rust-lang/rust/pull/49299
 [49305]: https://github.com/rust-lang/rust/pull/49305
 [49394]: https://github.com/rust-lang/rust/pull/49394
+[49458]: https://github.com/rust-lang/rust/pull/49458
 [`*const T::add`]: https://doc.rust-lang.org/std/primitive.pointer.html#method.add
 [`*const T::copy_to_nonoverlapping`]: https://doc.rust-lang.org/std/primitive.pointer.html#method.copy_to_nonoverlapping
 [`*const T::copy_to`]: https://doc.rust-lang.org/std/primitive.pointer.html#method.copy_to
@@ -192,6 +201,7 @@ Compatibility Notes
 [`process::id`]: https://doc.rust-lang.org/std/process/fn.id.html
 [`slice::rotate_left`]: https://doc.rust-lang.org/std/primitive.slice.html#method.rotate_left
 [`slice::rotate_right`]: https://doc.rust-lang.org/std/primitive.slice.html#method.rotate_right
+[`String::retain`]: https://doc.rust-lang.org/std/string/struct.String.html#method.retain
 [cargo/5041]: https://github.com/rust-lang/cargo/pull/5041
 [cargo/5083]: https://github.com/rust-lang/cargo/pull/5083
 [cargo/5093]: https://github.com/rust-lang/cargo/pull/5093
