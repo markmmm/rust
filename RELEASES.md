@@ -109,7 +109,7 @@ Compatibility Notes
 -------------------
 
 - [aliasing a `Fn` trait as `dyn` no longer works.][48481] E.g. the following
-  syntax is now a invalid.
+  syntax is now invalid.
   ```
   use std::ops::Fn as dyn;
   fn g(_: Box<dyn(std::fmt::Debug)>) {}
